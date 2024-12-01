@@ -1,0 +1,21 @@
+fn main() {
+    let result = run_part(include_str!("../input.txt"));
+    println!("Result for <day> <part> == {}", result)
+}
+
+fn run_part(_input: &str) -> u32 {
+    todo!()
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_part() {
+        let result = run_part(include_str!("../test.txt"));
+
+        // REPLACE WITH CORRECT TEST RESULT
+        assert_eq!(result, 0)
+    }
+}
