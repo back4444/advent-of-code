@@ -1,19 +1,15 @@
+use day_01::shared;
+
 fn main() {
     let result = run_part(include_str!("../input.txt"));
     println!("Result for day-01 part-1 == {}", result)
 }
 
 fn run_part(input: &str) -> u32 {
-    let (mut x, mut y): (Vec<u32>, Vec<u32>) = input
-        .lines()
-        .map(|line| {
-            let mut nums = line.split_whitespace().flat_map(str::parse::<u32>);
-            (nums.next().unwrap(), nums.next().unwrap())
-        })
-        .unzip();
+    let (mut x, mut y) = shared::parse_lists(input);
 
-    x.sort();
-    y.sort();
+    x.sort_unstable();
+    y.sort_unstable();
 
     x.iter().zip(y).map(|(a, b)| a.abs_diff(b)).sum()
 }
