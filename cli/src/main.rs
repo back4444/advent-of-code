@@ -66,9 +66,7 @@ fn scaffold_project(path: &Path, day: u32) -> Result<(), CustomError> {
     let day_input = request_input(day, &session_token)?;
     create_and_write_file(&path.join("src/input.txt"), Some(day_input))?;
 
-    create_and_write_file(&path.join("src/test.txt"), None)?;
-
-    Ok(())
+    create_and_write_file(&path.join("src/test.txt"), None)
 }
 
 fn read_template(name: &str) -> Result<String, CustomError> {
