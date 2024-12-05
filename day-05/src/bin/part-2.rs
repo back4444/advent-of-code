@@ -26,7 +26,7 @@ fn run_part(input: &str) -> u32 {
         }
 
         if was_incorrect {
-            count += update[(update.len() - 1) / 2]
+            count += update[n / 2]
         }
     }
 

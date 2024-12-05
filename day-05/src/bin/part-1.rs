@@ -11,7 +11,7 @@ fn run_part(input: &str) -> u32 {
     updates
         .iter()
         .filter(|update| update.is_sorted_by(|&a, &b| pairs.contains(&(a, b))))
-        .map(|update| update[(update.len() - 1) / 2])
+        .map(|update| update[update.len() / 2])
         .sum()
 }
 
