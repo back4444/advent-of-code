@@ -1,7 +1,4 @@
-use std::collections::HashSet;
-
 use day_06::shared;
-use lib::point::{Point, UP};
 
 fn main() {
     let result = run_part(include_str!("../input.txt"));
@@ -9,27 +6,8 @@ fn main() {
 }
 
 fn run_part(input: &str) -> u32 {
-    let (grid, mut guard_pos) = shared::parse_grid_and_guard_pos(input);
-
-    let mut visited: HashSet<Point> = HashSet::new();
-    visited.insert(guard_pos);
-
-    let mut vector = UP;
-
-    loop {
-        let next_pos = guard_pos + vector;
-
-        match shared::get_char(&grid, next_pos) {
-            Some('#') => vector = vector.clockwise(),
-            Some('.') | Some('^') => {
-                guard_pos = next_pos;
-                visited.insert(guard_pos);
-            }
-            _ => break,
-        }
-    }
-
-    visited.len() as u32
+    let (grid, guard_pos) = shared::parse_grid_and_guard_pos(input);
+    shared::calculate_visited(&grid, guard_pos).len() as u32
 }
 
 #[cfg(test)]
