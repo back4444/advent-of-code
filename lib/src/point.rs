@@ -34,6 +34,18 @@ impl Point {
     pub fn signum(self, other: Self) -> Self {
         Point::new((self.x - other.x).signum(), (self.y - other.y).signum())
     }
+
+    pub fn x_idx(&self) -> usize {
+        self.x as usize
+    }
+
+    pub fn y_idx(&self) -> usize {
+        self.y as usize
+    }
+
+    pub fn is_on_grid(&self, n: usize) -> bool {
+        self.x >= 0 && self.y >= 0 && self.x_idx() < n && self.y_idx() < n
+    }
 }
 
 impl Hash for Point {
