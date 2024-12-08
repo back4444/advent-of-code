@@ -1,4 +1,4 @@
-use lib::point::Point;
+use day_08::shared;
 use std::collections::HashSet;
 
 fn main() {
@@ -6,35 +6,14 @@ fn main() {
     println!("Result for day-08 part-1 == {}", result)
 }
 
-#[derive(Debug, Clone, Copy)]
-struct Antenna {
-    frequency: char,
-    pos: Point,
-}
-
 fn run_part(input: &str) -> u32 {
-    let grid: Vec<Vec<char>> = input.lines().map(|line| line.chars().collect()).collect();
-    let n = grid.len();
-
-    let antennas: Vec<Antenna> = grid
-        .iter()
-        .enumerate()
-        .flat_map(|(y, row)| {
-            row.iter()
-                .enumerate()
-                .filter(|(_, &entry)| (entry != '.'))
-                .map(move |(x, &entry)| Antenna {
-                    frequency: entry,
-                    pos: Point::new(x as i32, y as i32),
-                })
-        })
-        .collect();
+    let (antennas, n) = shared::parse_antennas(input);
 
     let mut antinode_positions = HashSet::new();
 
     for (i, a) in antennas.iter().enumerate() {
         for b in antennas.iter().skip(i + 1) {
-            if a.frequency != b.frequency {
+            if a.freq != b.freq {
                 continue;
             }
 
