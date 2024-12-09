@@ -8,65 +8,50 @@ fn main() {
     println!("Took about {:?}", duration);
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-enum Block {
-    File(u64),
-    Empty,
-}
-
 fn run_part(input: &str) -> u64 {
+    let mut blocks: Vec<Option<u64>> = vec![];
+    let mut next_id = 0;
+
+    for (i, ch) in input.char_indices() {
+        let size = ch.to_digit(10).unwrap();
+
+        if i % 2 == 0 {
+            for _ in 0..size {
+                blocks.push(Some(next_id));
+            }
+            next_id += 1;
+        } else {
+            for _ in 0..size {
+                blocks.push(None);
+            }
+        }
+    }
+
+    moves(&mut blocks);
+
     let mut total = 0;
 
-    for line in input.lines() {
-        let mut blocks: Vec<Block> = vec![];
-        let mut next_id = 0;
-
-        for (i, ch) in line.char_indices() {
-            let size = ch.to_digit(10).unwrap();
-
-            if i % 2 == 0 {
-                for _ in 0..size {
-                    blocks.push(Block::File(next_id));
-                }
-                next_id += 1;
-            } else {
-                for _ in 0..size {
-                    blocks.push(Block::Empty);
-                }
-            }
-        }
-
-        for j in 0..blocks.len() {
-            let last = blocks.len() - 1 - j;
-
-            for k in 0..last {
-                if blocks[k] == Block::Empty && blocks[last] != Block::Empty {
-                    blocks[k] = blocks[last];
-                    blocks[last] = Block::Empty;
-                    break;
-                }
-            }
-        }
-
-        for (pos, block) in blocks.iter().enumerate() {
-            if let Block::File(id) = block {
-                total += id * pos as u64;
-            }
+    for (pos, block) in blocks.iter().enumerate() {
+        if let Some(id) = block {
+            total += id * pos as u64;
         }
     }
 
     total
 }
 
-#[allow(unused)]
-fn print_blocks(blocks: &[Block]) {
-    for x in blocks {
-        match x {
-            Block::Empty => print!("."),
-            Block::File(id) => print!("{id}"),
+fn moves(blocks: &mut [Option<u64>]) {
+    let mut i = 0;
+    let mut j = blocks.len() - 1;
+
+    while i < j {
+        if blocks[i].is_none() {
+            blocks.swap(i, j);
+            j -= 1
+        } else {
+            i += 1;
         }
     }
-    println!()
 }
 
 #[cfg(test)]
