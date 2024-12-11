@@ -1,8 +1,10 @@
+use std::time::Instant;
+
 fn main() {
     let instant = Instant::now();
     let result = run_part(include_str!("../input.txt"));
     let duration = instant.elapsed();
-    println!("Result for <day> <part> == {}", result)
+    println!("Result for <day> <part> == {}", result);
     println!("Took about {:?}", duration);
 }
 

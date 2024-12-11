@@ -1,6 +1,6 @@
 use std::{
     hash::{Hash, Hasher},
-    ops::{Add, AddAssign, Mul, Sub, SubAssign},
+    ops::{Add, AddAssign, Index, IndexMut, Mul, Sub, SubAssign},
 };
 
 pub const UP: Point = Point::new(0, -1);
@@ -63,6 +63,24 @@ impl Add for Point {
     }
 }
 
+impl Add<(i32, i32)> for Point {
+    type Output = Self;
+
+    fn add(self, rhs: (i32, i32)) -> Self::Output {
+        Point {
+            x: self.x + rhs.0,
+            y: self.y + rhs.1,
+        }
+    }
+}
+
+impl AddAssign<(i32, i32)> for Point {
+    fn add_assign(&mut self, rhs: (i32, i32)) {
+        self.x += rhs.0;
+        self.y += rhs.1;
+    }
+}
+
 impl AddAssign for Point {
     fn add_assign(&mut self, rhs: Self) {
         self.x += rhs.x;
@@ -90,5 +108,19 @@ impl SubAssign for Point {
     fn sub_assign(&mut self, rhs: Self) {
         self.x -= rhs.x;
         self.y -= rhs.y;
+    }
+}
+
+impl<T> Index<Point> for Vec<Vec<T>> {
+    type Output = T;
+
+    fn index(&self, point: Point) -> &Self::Output {
+        &self[point.y_idx()][point.x_idx()]
+    }
+}
+
+impl<T> IndexMut<Point> for Vec<Vec<T>> {
+    fn index_mut(&mut self, point: Point) -> &mut Self::Output {
+        &mut self[point.y_idx()][point.x_idx()]
     }
 }
