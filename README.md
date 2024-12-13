@@ -16,3 +16,4 @@ A rust workspace containing Advent of Code solutions for 2024
 | 10 | [Hoof It](https://adventofcode.com/2024/day/10) | [Source](day-10/src/bin/) |
 | 11 | [Plutonian Pebbles](https://adventofcode.com/2024/day/11) | [Source](day-11/src/bin/) |
 | 12 | [Garden Groups](https://adventofcode.com/2024/day/12) | [Source](day-12/src/bin/) |
+| 13 | [Claw Contraption](https://adventofcode.com/2024/day/13) | [Source](day-13/src/bin/) |
