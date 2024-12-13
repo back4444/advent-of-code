@@ -1,7 +1,5 @@
 pub mod shared {
-    use lib::point::Point;
-
-    const DIRECTIONS: [(i32, i32); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
+    use lib::{point::Point, utils};
 
     pub fn parse_grid(input: &str) -> Vec<Vec<i32>> {
         input
@@ -36,7 +34,7 @@ pub mod shared {
             let temp = grid[current_pos];
             grid[current_pos] = -1;
 
-            for unit in DIRECTIONS {
+            for unit in utils::DIRECTIONS {
                 let next_pos = current_pos + unit;
 
                 if next_pos.is_on_grid(grid.len()) && grid[next_pos] == current_value + 1 {
